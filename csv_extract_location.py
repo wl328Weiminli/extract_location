@@ -7,17 +7,19 @@ geo = Geoparser()
 ALL_Location = []
 run_function = lambda x, y: x if y in x else x + [y]
 
-with open('data/water_quality.csv', errors="ignore") as f:
+with open('data/covid_19.csv', errors="ignore") as f:
     Reader = csv.DictReader(f)
     for row in Reader:
-        a = row["Abstract"]
-        t = row["Title"]
+        a = row["abstract"]
+        t = row["title"]
+        j = row["journal"]
+        url = row["url"]
         try:
             geoINF = geo.geoparse(a)
         except:
             continue
         for i in range(len(geoINF)):
-            location = {'place_name': '', 'country': '', 'lat': '', 'lon': '', 'article': t}
+            location = {'place_name': '', 'country': '', 'lat': '', 'lon': '', 'title': t, 'journal': j, 'url': url}
             try:
                 a = geoINF[i]['geo']
             except:
@@ -29,6 +31,6 @@ with open('data/water_quality.csv', errors="ignore") as f:
             ALL_Location.append(location)
 
 all_location_lean = reduce(run_function, [[], ] + ALL_Location)
-filename = 'WaterDataLoc.json'
+filename = 'covid_location.json'
 with open(filename, 'w+') as file_obj:
     json.dump(all_location_lean, file_obj)
