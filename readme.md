@@ -1,7 +1,9 @@
-## extract location from txt or csv
+## Extract location from txt or csv
+
+##  Using mordecai. More about mordecai: https://github.com/openeventdata/mordecai
 
 ## environment
-python 3.5(best using conda create new one) docker 
+python 3.5(better using conda create new one); docker 
 
 ## step 1
 
@@ -18,9 +20,9 @@ In order to work, Mordecai needs access to a Geonames gazetteer running in Elast
     tar -xzf geonames_index.tar.gz
     docker run -d -p 127.0.0.1:9200:9200 -v $(pwd)/geonames_index/:/usr/share/elasticsearch/data elasticsearch:5.5.2
 
-## then you can use
+## How to use
 
     from mordecai import Geoparser
     geo = Geoparser()
-    geo.geoparse("strin which you want extract location")
+    geo.geoparse("string which you want extract location")
     
